@@ -35,11 +35,8 @@ namespace Leap_Year.Pages
         [BindProperty]
         public LeapYear LeapYear { get; set; } = default!;
 
-        public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex)
+        public async Task OnGetAsync(string currentFilter, string searchString, int? pageIndex)
         {
-            CurrentSort = sortOrder;
-            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
             if (searchString != null)
             {
                 pageIndex = 1;
@@ -52,41 +49,11 @@ namespace Leap_Year.Pages
             
             IQueryable<LeapYear> _LeapYear = from s in _context.LeapYear select s;
 
-            /*
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    _LeapYear = _LeapYear.OrderByDescending(s => s.Name);
-                    break;
-                case "Date":
-                    _LeapYear = _LeapYear.OrderBy(s => s.SearchTime);
-                    break;
-                case "date_desc":
-                    _LeapYear = _LeapYear.OrderByDescending(s => s.SearchTime);
-                    break;
-                default:
-                    _LeapYear = _LeapYear.OrderBy(s => s.Year);
-                    break;
-            }
-            */
             _LeapYear = _LeapYear.OrderByDescending(s => s.SearchTime);
             var pageSize = _configuration.GetValue("PageSize", 20);
             leapYears = await PaginatedList<LeapYear>.CreateAsync(
                 _LeapYear.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
 
-        /*
-        public async Task<IActionResult> OnPostAsync()
-        {
-          if (!ModelState.IsValid || _context.LeapYear == null)
-            {
-                return Page();
-            }
-            _context.LeapYear.Add(LeapYear);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
-        */
     }
 }
