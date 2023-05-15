@@ -1,0 +1,15 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<h1 class="display-4"></h1>
+<span style="font-weight:bold" asp-validation-for="LeapYear.Year" class="text-danger"></span>
+
+<form method="post">
+    <label asp-for="LeapYear.Year"></label>
+    <input asp-for="LeapYear.Year" /><br />
+    <label asp-for="LeapYear.Name"></label>
+    <input asp-for="LeapYear.Name" /><br />
+    <button type="submit">Zatwierdź</button>
+</form>

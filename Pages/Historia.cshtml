@@ -1,0 +1,73 @@
+﻿@page
+@model Leap_Year.Pages.HistoriaModel
+
+@{
+    ViewData["Title"] = "Historia";
+}
+
+<h1>Historia</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                    @Html.DisplayNameFor(model => model.LeapYear.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeapYear.Year)
+            </th>
+            <th>
+                <a asp-page="./History" asp-route-sortOrder="@Model.DateSort"
+                    asp-route-currentFilter = "@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.LeapYear.SearchTime)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeapYear.Result)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.leapYears)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modeItem => item.SearchTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modeItem => item.Result)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.leapYears.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.leapYears.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./History"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.leapYears.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./History"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.leapYears.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

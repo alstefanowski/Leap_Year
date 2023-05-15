@@ -1,0 +1,27 @@
+﻿@page
+@model Leap_Year.Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h4>LeapYear</h4>
+<hr />
+<d1 class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.LeapYear.ID)
+    </dt>
+    <dt class="col-sm-10">
+        @Html.DisplayNameFor(model => model.LeapYear.ID)
+    </dt>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(Loginmodel => Loginmodel.User.Identity.Name)
+    </dt>
+    <dt class="col-sm-10">
+        @Html.DisplayNameFor(Loginmodel => Loginmodel.User.Identity.Name)
+        <!--@User.Identity.Name -->
+        <!--@Html.DisplayNameFor(model => model.User) -->
+    </dt>
+</d1>
